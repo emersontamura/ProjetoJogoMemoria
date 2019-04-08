@@ -100,7 +100,8 @@ function restart(){
         }
     for(let i = 0; i < listIcons.length; i++){
         listIcons[i].className = "";
-        }   
+        } 
+    openedCards = [];    
     shuffle(iconsArray);    
     addIcons();
     moves = 0;

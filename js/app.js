@@ -117,6 +117,34 @@ function restart(){
     }); 
 }
 
+	function playAgainfn(){
+		
+		const playAgain = document.getElementById("btnPlayAgain");
+		
+		playAgain.addEventListener("click",function(){    
+		modal.style.display = "none";   
+		for(let i = 0; i < listCards.length; i++){
+			listCards[i].classList.remove("open","show","match","disabled");
+			}
+		for(let i = 0; i < listIcons.length; i++){
+			listIcons[i].className = "";
+			} 
+		openedCards = [];    
+		shuffle(iconsArray);    
+		addIcons();
+		moves = 0;
+		spanMoves.innerHTML = moves;
+		document.getElementById("star1").style.visibility = "visible";  
+		document.getElementById("star2").style.visibility = "visible";
+		document.getElementById("star3").style.visibility = "visible";
+		matchedCards.length = 0;
+		time.innerHTML =  "00:00";
+		clearInterval(gameInterval);
+		clicks = 0;
+		starsCount = 3; 
+		}); 
+	}
+
 //Finish Game
 function finish(){
     if(matchedCards.length === listCards.length){
@@ -126,6 +154,7 @@ function finish(){
         resultStars.innerHTML = starsCount;
         alert("FINISH");
         modal.style.display = "block";
+		playAgainfn();
     }
 }
 
@@ -137,17 +166,13 @@ function movesCount(){
 
 // This function hides the stars according to the number of moves
 function stars(){
-    if(moves === 15){
+    if(moves === 20){
         document.getElementById("star3").style.visibility = "hidden";
         starsCount = 2;
     };
-    if(moves === 20 ){
+    if(moves === 25 ){
         document.getElementById("star2").style.visibility = "hidden";
         starsCount = 1;
-    };
-    if(moves === 25){
-        document.getElementById("star1").style.visibility = "hidden";
-        starsCount = 0;
     };
 }
 
@@ -167,7 +192,6 @@ function timer() {
         minutes = minutes < 10 ? "0" + minutes : minutes;
 
         time.innerHTML = minutes + ":" + seconds;
-        // console.log(time,"hellooooo are you there????");
     }, 1000);
 }
 
@@ -178,12 +202,35 @@ if(clicks === 1){
 } 
 }
 
+	function restartCloseModal(){
+		for(let i = 0; i < listCards.length; i++){
+			listCards[i].classList.remove("open","show","match","disabled");
+			}
+		for(let i = 0; i < listIcons.length; i++){
+			listIcons[i].className = "";
+			} 
+		openedCards = [];    
+		shuffle(iconsArray);    
+		addIcons();
+		moves = 0;
+		spanMoves.innerHTML = moves;
+		document.getElementById("star1").style.visibility = "visible";  
+		document.getElementById("star2").style.visibility = "visible";
+		document.getElementById("star3").style.visibility = "visible";
+		matchedCards.length = 0;
+		time.innerHTML =  "00:00";
+		clearInterval(gameInterval);
+		clicks = 0;
+		starsCount = 3; 
+	}
+
 // Function to close Modal
 function closeModal(){
     const closeModal = document.querySelector("#close");
     closeModal.addEventListener("click",function(){
     modal.style.display = "none";   
-    })
+    restartCloseModal();
+	})
 }
 
 // This Function add icons to cards
@@ -208,5 +255,6 @@ function shuffle(array) {
 
     return array;
 }
+ 
  
 
